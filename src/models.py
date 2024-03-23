@@ -7,24 +7,6 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
-
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
-
 class User(Base):
     _tablename__ = 'user'
     # Here we define columns for the table person
@@ -34,15 +16,25 @@ class User(Base):
     profile_name = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
 
-class photos(Base):
-    _tablename__ = 'photos'
+class follower(Base):
+    _tablename__ = 'follower'
+
+    following_user_id = Column(Integer, ForeignKey('following.user.id'))
+    user = relationship(User)
+
+    followed_user_id = Column(Integer, ForeignKey('followed.user.id'))
+    user = relationship(User)
+
+class post(Base):
+    _tablename__ = 'post'
     id = Column(Integer, primary_key=True)
-    image_url= Column(varchar(250), nullable=True)
+
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
 
-   
+
+
 
 
 
