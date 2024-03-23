@@ -25,6 +25,27 @@ class Address(Base):
     person_id = Column(Integer, ForeignKey('person.id'))
     person = relationship(Person)
 
+class User(Base):
+    _tablename__ = 'user'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250), nullable=False)
+    profile_name = Column(String(250), nullable=False)
+    password = Column(String(250), nullable=False)
+
+class photos(Base):
+    _tablename__ = 'photos'
+    id = Column(Integer, primary_key=True)
+    image_url= Column(varchar(250), nullable=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+
+   
+
+
+
     def to_dict(self):
         return {}
 
