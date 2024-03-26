@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Date
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 from eralchemy2 import render_er
@@ -33,7 +33,31 @@ class post(Base):
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
+    date= Column (Date, nullable= False)
 
+
+class media(Base):
+    __tablename__ = 'media'
+    id = Column(Integer, primary_key=True)
+
+    post_id = Column(Integer, ForeignKey('post.id'))
+    post = relationship(post)
+
+    url= Column (String(500), nullable= False)
+    type = Column (String(250), nullable= False)
+
+class comment(Base):
+    __tablename__ = 'comment'
+    id = Column(Integer, primary_key=True)
+
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+    post_id = Column(Integer, ForeignKey('post.id'))
+    post = relationship(post)
+
+
+    comment_text= Column (String(1000), nullable= True)
 
 
 
